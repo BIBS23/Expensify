@@ -1,8 +1,5 @@
-// ignore_for_file: avoid_print
-
 import 'package:expensify/controllers/dbhelper.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
@@ -15,19 +12,6 @@ class _AddTransactionState extends State<AddTransaction> {
   int? amount;
   String note = "note";
   String type = "income";
-  static DateTime selecteddate = DateTime.now();
-  void dt() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2024))
-        .then((value) {
-      setState(() {
-        selecteddate = value!;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,33 +75,12 @@ class _AddTransactionState extends State<AddTransaction> {
                   color: Colors.orange,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(12),
-                  child: Icon(
-                    Icons.note_add,
-                    size: 24,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+                child: 
+              
               const SizedBox(
                 width: 25,
               ),
-              Expanded(
-                child: TextField(
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Description",
-                      hintStyle: TextStyle(fontSize: 21)),
-                  style: const TextStyle(fontSize: 24),
-                  onChanged: (value) {
-                    try {
-                      amount = int.parse(value);
-                    } catch (e) {}
-                  },
-                ),
-              ),
-            ],
+          )],
           ),
           const SizedBox(height: 24),
           Row(
@@ -178,36 +141,24 @@ class _AddTransactionState extends State<AddTransaction> {
                   color: Colors.orange,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: IconButton(
-                    onPressed: () {
-                      dt();
-                    },
-                    icon: const Icon(
-                      Icons.date_range,
-                      color: Colors.white,
-                      size: 30,
-                    )),
               ),
               const SizedBox(width: 25),
-              Text(
-                  '${selecteddate.day}-${selecteddate.month}-${selecteddate.year}',
-                  style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)),
             ],
           ),
           const SizedBox(height: 24),
-          SizedBox(
+          Container(
             height: 50,
             width: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+            ),
             child: ElevatedButton(
                 style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(Colors.orange)),
                 onPressed: () async {
                   if (amount != null && note != null) {
                     DbHelper dbHelper = DbHelper();
-                    await dbHelper.addData(amount!, selecteddate, note, type);
+                    await dbHelper.addData(amount!, note, type);
                     Navigator.pop(context);
                   } else {
                     print("All values are note added");

@@ -9,8 +9,8 @@ class DbHelper {
     box = Hive.box('money');
   }
 
-  Future addData(int amount, DateTime date, String note, String type) async {
-    var value = {'amount': amount, 'data': date, 'note': note, 'type': type};
+  Future addData(int amount, String note, String type) async {
+    var value = {'amount': amount, 'note': note, 'type': type};
     box.add(value);
   }
 
