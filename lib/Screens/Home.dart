@@ -24,11 +24,9 @@ class _HomeState extends State<Home> {
       if (value['type'] == 'income') {
         totalbalance += (value['amount'] as int);
         totalincome += (value['amount'] as int);
-      }   
-      else {
-        totalbalance =  (value['amount'] as int)>0?totalbalance--:0;     
+      } else {
+        totalbalance>0?totalbalance-= (value['amount'] as int):totalbalance=0;
         totalexpense += (value['amount'] as int);
-        
       }
     });
   }
