@@ -24,9 +24,11 @@ class _HomeState extends State<Home> {
       if (value['type'] == 'income') {
         totalbalance += (value['amount'] as int);
         totalincome += (value['amount'] as int);
-      } else {
-        totalbalance -= (value['amount'] as int);
+      }   
+      else {
+        totalbalance =  (value['amount'] as int)>0?totalbalance--:0;     
         totalexpense += (value['amount'] as int);
+        
       }
     });
   }
@@ -76,13 +78,14 @@ class _HomeState extends State<Home> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
-                    SizedBox(
-                      height: 50),
-                      Text(
-                          "Hey Bibs",
-                         style: TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700,letterSpacing: 5),
-                        ),
+                    SizedBox(height: 50),
+                    Text(
+                      "Hey Bibs",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 5),
+                    ),
                   ],
                 ),
                 Padding(
@@ -141,7 +144,11 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Center(child: Text("Recent Expenses",style: TextStyle(fontSize: 20,letterSpacing: 10),)),
+                const Center(
+                    child: Text(
+                  "Recent Expenses",
+                  style: TextStyle(fontSize: 20, letterSpacing: 10),
+                )),
                 const SizedBox(height: 10),
                 ListView.builder(
                     shrinkWrap: true,
@@ -149,11 +156,11 @@ class _HomeState extends State<Home> {
                     itemBuilder: (context, index) {
                       Map dataAtIndex = snapshot.data![index];
                       if (dataAtIndex['type'] == 'income') {
-                        return incometile(dataAtIndex['amount'].toString(),
-                           'Income');
+                        return incometile(
+                            dataAtIndex['amount'].toString(), 'Income');
                       } else {
-                        return expensetile(dataAtIndex['amount'].toString(),
-                            'Expense');
+                        return expensetile(
+                            dataAtIndex['amount'].toString(), 'Expense');
                       }
                     })
               ]);
@@ -261,7 +268,11 @@ Widget expensetile(String value, String note) {
           Text(note),
           Padding(
             padding: const EdgeInsets.only(right: 20),
-            child: Text('-$value',style: const TextStyle(color: Colors.red,fontWeight: FontWeight.w700,fontSize: 17),),
+            child: Text(
+              '-$value',
+              style: const TextStyle(
+                  color: Colors.red, fontWeight: FontWeight.w700, fontSize: 17),
+            ),
           ),
         ],
       ),
@@ -301,7 +312,13 @@ Widget incometile(String value, String note) {
           Text(note),
           Padding(
             padding: const EdgeInsets.only(right: 20),
-            child: Text(value.toString(),style: const TextStyle(color: Colors.green,fontWeight: FontWeight.w700,fontSize: 17),),
+            child: Text(
+              value.toString(),
+              style: const TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 17),
+            ),
           ),
         ],
       ),
